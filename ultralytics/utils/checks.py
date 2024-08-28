@@ -10,7 +10,9 @@ import re
 import shutil
 import subprocess
 import time
-from importlib import metadata
+import sys
+if sys.version_info >= (3, 8):
+    from importlib import metadata
 from pathlib import Path
 from typing import Optional
 
