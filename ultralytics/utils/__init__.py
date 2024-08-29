@@ -1,7 +1,11 @@
 # Ultralytics YOLO 🚀, AGPL-3.0 license
 
 import contextlib
-import importlib.metadata
+import sys
+if sys.version_info >= (3, 8):
+    import importlib.metadata
+else:
+    import pkg_resources
 import inspect
 import logging.config
 import os
@@ -45,7 +49,10 @@ MACOS, LINUX, WINDOWS = (platform.system() == x for x in ["Darwin", "Linux", "Wi
 ARM64 = platform.machine() in {"arm64", "aarch64"}  # ARM64 booleans
 PYTHON_VERSION = platform.python_version()
 TORCH_VERSION = torch.__version__
-TORCHVISION_VERSION = importlib.metadata.version("torchvision")  # faster than importing torchvision
+if sys.version_info >= (3, 8):
+    TORCHVISION_VERSION = importlib.metadata.version("torchvision")  # faster than importing torchvision
+else:
+    TORCHVISION_VERSION =  pkg_resources.get_distribution("torchvision").version
 IS_VSCODE = os.environ.get("TERM_PROGRAM", False) == "vscode"
 HELP_MSG = """
     Examples for running Ultralytics:
